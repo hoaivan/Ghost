@@ -17,5 +17,18 @@
             "enabled": true
         },
         "transports": ["file", "stdout"]
+    },
+    "mail": {
+        "transport": "SMTP",
+        "options": {
+            "service": "Gmail",
+            "host": "smtp.gmail.com",
+            "port": 465,
+            "secureConnection": true,
+            "auth": {
+                "user": "fosecvn123456@gmail.com",
+                "pass": "123456a@"
+            }
+        }
     }
 }
