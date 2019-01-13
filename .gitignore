@@ -54,6 +54,7 @@ Session.vim
 /content/images/**/*
 /content/adapters/storage/**/*
 /content/adapters/scheduling/**/*
+/content/themes/news/node_modules
 !/content/themes/casper/**
 !/README.md
 !/content/**/README.md

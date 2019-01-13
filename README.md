@@ -1,3 +1,12 @@
+# Cựu chiến binh  
+
+- Setup repo:
+```
+cd core/client
+git remote rename origin upstream
+git remote add origin git@github.com:hoaivan/Ghost-Admin.git
+```
+
 &nbsp;
 <p align="center">
   <a href="https://ghost.org">
@@ -109,6 +118,3 @@ For anyone wishing to contribute to Ghost or to hack/customise core files we rec
 # Copyright & License
 
 Copyright (c) 2013-2019 Ghost Foundation - Released under the [MIT license](LICENSE). Ghost and the Ghost Logo are trademarks of Ghost Foundation Ltd. Please see our [trademark policy](https://ghost.org/trademark/) for info on acceptable usage.
-
-
-# Changed

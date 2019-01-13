@@ -4,3 +4,6 @@
 [submodule "core/client"]
 	path = core/client
 	url = ../../TryGhost/Ghost-Admin.git
+[submodule "content/themes/news"]
+	path = content/themes/news
+	url = https://github.com/hoaivan/news.git
