@@ -6,6 +6,14 @@ cd core/client
 git remote rename origin upstream
 git remote add origin git@github.com:hoaivan/Ghost-Admin.git
 ```
+- Hoặc nếu repo core/client ko tự kéo về thì: 
+
+```
+git submodule add https://github.com/hoaivan/Ghost-Admin
+cd core/client
+git submodule init
+git submodule update
+```
 
 &nbsp;
 <p align="center">
