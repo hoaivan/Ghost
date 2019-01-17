@@ -15,6 +15,12 @@ git submodule init
 git submodule update
 ```
 
+- Cách tạo link quảng cáo:  
+  1. Tạo markdown 
+  2. Add image 
+  3. Chọn image add url 
+  
+
 &nbsp;
 <p align="center">
   <a href="https://ghost.org">
