@@ -36,6 +36,7 @@ coreHelpers.tags = require('./tags');
 coreHelpers.title = require('./title');
 coreHelpers.twitter_url = require('./twitter_url');
 coreHelpers.url = require('./url');
+coreHelpers.child_category = require('./child_category');
 
 registerAllCoreHelpers = function registerAllCoreHelpers() {
     // Register theme helpers
@@ -66,6 +67,7 @@ registerAllCoreHelpers = function registerAllCoreHelpers() {
     registerThemeHelper('twitter_url', coreHelpers.twitter_url);
     registerThemeHelper('facebook_url', coreHelpers.facebook_url);
     registerThemeHelper('url', coreHelpers.url);
+    //registerThemeHelper('child_category', coreHelpers.child_category);
 
     // Async theme helpers
     registerAsyncThemeHelper('ghost_foot', coreHelpers.ghost_foot);
@@ -73,6 +75,7 @@ registerAllCoreHelpers = function registerAllCoreHelpers() {
     registerAsyncThemeHelper('next_post', coreHelpers.next_post);
     registerAsyncThemeHelper('prev_post', coreHelpers.prev_post);
     registerAsyncThemeHelper('get', coreHelpers.get);
+    registerAsyncThemeHelper('child_category', coreHelpers.child_category);
 };
 
 module.exports = coreHelpers;
