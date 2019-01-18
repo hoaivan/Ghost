@@ -34,7 +34,6 @@ tags = {
          * @returns {Object} options
          */
         function doQuery(options) {
-            console.log('options', options);
             return models.Tag.findPage(options)
                 .then(({data, meta}) => {
                     return {

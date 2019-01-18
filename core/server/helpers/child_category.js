@@ -15,7 +15,6 @@ var proxy = require('./proxy'),
     createFrame = proxy.hbs.handlebars.createFrame;
 
 module.exports = function child_category(options) {
-    //console.log('child category', options);
     var categories = options.data.config.categories;
     var current_tag = options.hash.slug;
     var fn = options.fn,
