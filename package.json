@@ -22,7 +22,7 @@
   "main": "./core/index",
   "scripts": {
     "start": "node index",
-    "dev": "DEBUG=ghost:* grunt dev",
+    "dev": "NODE_OPTIONS=\"--max-old-space-size=1024\" DEBUG=ghost:* grunt dev",
     "test": "grunt validate --verbose",
     "setup": "yarn install && knex-migrator init && grunt symlink && grunt init || true",
     "lint": "grunt lint"
