@@ -23,15 +23,18 @@ def _list_files(startpath, process_file):
 
 
 def check_admin_ui():
-    lang_file = os.path.join(dir, "core/client/translations/vi-vn.yaml")
+    vi_file = os.path.join(dir, "core/client/translations/vi-vn.yaml")
+    en_file = os.path.join(dir, "core/client/translations/en-us.yaml")
     added = set()
-    with open(lang_file, "r", encoding="utf-8") as f:
-        for line in f:
-            words = line.lstrip().split(":")
-            if words:
-                added.add(words[0])
 
-    def save(lang, lines):
+    def _get_added(lang, exist):
+        with open(lang, "r", encoding="utf-8") as f:
+            for line in f:
+                words = line.lstrip().split(":")
+                if words:
+                    exist.add(words[0])
+
+    def _save(lang, lines):
         with open(lang, "a", encoding="utf-8") as out_file:
             for line in lines:
                 phrases = re.findall(PATTERN, line)
@@ -47,9 +50,19 @@ def check_admin_ui():
 
     def process_file(inp):
         with open(inp, "r+", encoding="utf-8") as in_file:
-            save(lang_file, in_file)
+            _save(vi_file, in_file)
+
+    _get_added(vi_file, added)
     # CHANGE PATH IF YOU WANT CHECK MORE
     _list_files(os.path.join(dir, "core/client/app/templates"), process_file)
+
+    # sync eng
+    added_en = set()
+    _get_added(en_file, added_en)
+    with open(en_file, "a", encoding="utf-8") as out_file:
+        new = added - added_en
+        for word in new:
+            out_file.write("{}: {}\n".format(word, word))
 
 
 if __name__ == "__main__":
