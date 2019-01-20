@@ -1,8 +1,3 @@
-// # URL helper
-// Usage: `{{url}}`, `{{url absolute="true"}}`
-//
-// Returns the URL for the current object scope i.e. If inside a post scope will return post permalink
-// `absolute` flag outputs absolute URL, else URL is relative
 
 var proxy = require('./proxy'),
     SafeString = proxy.SafeString,
@@ -14,7 +9,7 @@ var proxy = require('./proxy'),
     _ = require('lodash'),
     createFrame = proxy.hbs.handlebars.createFrame;
 
-module.exports = function child_category(options) {
+module.exports = function category(options) {
     var categories = options.data.config.categories;
     var current_tag = options.hash.slug;
     var fn = options.fn,
@@ -63,6 +58,11 @@ module.exports = function child_category(options) {
         });
     }
 
-    iterateCollection(items);
+    if (items) {
+        iterateCollection(items);
+    } else {
+        output = options.inverse(this);
+    }
+
     return output;
 };

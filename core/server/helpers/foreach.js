@@ -57,6 +57,7 @@ module.exports = function foreach(items, options) {
     function execIteration(field, index, last) {
         if (data) {
             data.key = field;
+            data.value = items[field];
             data.index = index;
             data.number = index + 1;
             data.first = index === from - 1; // From uses 1-indexed, but array uses 0-indexed
@@ -69,7 +70,6 @@ module.exports = function foreach(items, options) {
                 data.contextPath = contextPath + field;
             }
         }
-
         output = output + fn(items[field], {
             data: data,
             blockParams: hbsUtils.blockParams([items[field], field], [contextPath + field, null])

@@ -8,7 +8,7 @@ var proxy = require('./proxy'),
     _ = require('lodash'),
     logging = proxy.logging,
     i18n = proxy.i18n,
-    validAttrs = ['tag', 'author', 'slug', 'id', 'number', 'index', 'any', 'all'];
+    validAttrs = ['tag', 'author', 'slug', 'id', 'number', 'index', 'any', 'all', 'key', 'value'];
 
 function handleCount(ctxAttr, data) {
     let count;
@@ -132,6 +132,40 @@ module.exports = function has(options) {
             },
             index: function () {
                 return attrs.index && evaluateIntegerMatch(attrs.index, options.data.index) || false;
+            },
+            key: function () {
+                // check key of dict == value
+                let key = attrs.key.replace(" ", "");
+                if (key.startsWith("{{@root")) {
+                    key = key.replace("{{@root.", "");
+                    key = key.replace("}}", "");
+                    tmp = options.data.root;
+                    for (let k of key.split('.')) {
+                        tmp = tmp[k];
+
+                    }
+                    key = tmp;
+                }
+                return attrs.key && evaluateStringMatch(key, options.data.key, true) || false;
+            },
+            value: function () {
+                // check value of dict == value
+                let key = attrs.value.replace(" ", "");
+                if (key.startsWith("{{@root")) {
+                    key = key.replace("{{@root.", "");
+                    key = key.replace("}}", "");
+                    tmp = options.data.root;
+                    for (let k of key.split('.')) {
+                        tmp = tmp[k];
+
+                    }
+                    key = tmp;
+                }
+                for(let v of options.data.value) {
+                    let result = attrs.value && evaluateStringMatch(key, v, true);
+                    if (result) return true;
+                }
+                return false;
             },
             slug: function () {
                 return attrs.slug && evaluateStringMatch(attrs.slug, self.slug, true) || false;

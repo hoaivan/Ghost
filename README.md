@@ -19,7 +19,17 @@ git submodule update
   1. Tạo markdown 
   2. Add image 
   3. Chọn image add url 
+
+- Clear db:
+    truncate TABLE ghost.posts_tags;
+    truncate TABLE ghost.posts_authors;
+    truncate TABLE ghost.tags;
+    truncate TABLE ghost.posts;
   
+
+- Chay prod: 
+  1. NODE_OPTIONS="--max-old-space-size=1024"
+ 
 
 &nbsp;
 <p align="center">
