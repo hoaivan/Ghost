@@ -24,10 +24,10 @@ checkTheme = function checkTheme(theme, isZip) {
 
             // CASE: production and no fatal errors
             // CASE: development returns fatal and none fatal errors, theme is only invalid if fatal errors
-            if (!checkedTheme.results.error.length ||
-                config.get('env') === 'development' && !checkedTheme.results.hasFatalErrors) {
+            //if (!checkedTheme.results.error.length ||
+            //    config.get('env') === 'development' && !checkedTheme.results.hasFatalErrors) {
                 return checkedTheme;
-            }
+            //}
 
             return Promise.reject(new common.errors.ThemeValidationError({
                 message: common.i18n.t('errors.api.themes.invalidTheme'),
