@@ -155,9 +155,13 @@ get = function get(resource, options) {
         return Promise.resolve(options.inverse(self, {data: data}));
     }
 
+    // dirty hack
     if (_.isString(apiOptions.filter)) {
         if (apiOptions.filter.indexOf('category_key') > 0) {
             this.category_key = options.data.key;
+        }
+        if (apiOptions.filter.indexOf('category_value') > 0) {
+            this.category_value = options.data.value;
         }
     }
     // Parse the options we're going to pass to the API

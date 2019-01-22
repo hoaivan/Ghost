@@ -63,6 +63,7 @@ themeMiddleware.updateTemplateData = function updateTemplateData(req, res, next)
         themeData.posts_per_page = activeTheme.get().config('posts_per_page');
         themeData.image_sizes = activeTheme.get().config('image_sizes');
         themeData.categories = activeTheme.get().config('categories');
+        themeData.home_page_categories = activeTheme.get().config('home_page_categories');
     }
 
     // Request-specific information
