@@ -64,6 +64,7 @@ themeMiddleware.updateTemplateData = function updateTemplateData(req, res, next)
         themeData.image_sizes = activeTheme.get().config('image_sizes');
         themeData.categories = activeTheme.get().config('categories');
         themeData.home_page_categories = activeTheme.get().config('home_page_categories');
+        themeData.quy_tap_liet_si = activeTheme.get().config('quy_tap_liet_si');
     }
 
     // Request-specific information
