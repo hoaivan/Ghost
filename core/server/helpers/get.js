@@ -111,6 +111,8 @@ function resolvePaths(data, value) {
  */
 function parseOptions(data, options) {
     if (_.isString(options.filter)) {
+        // console.log('data', data);
+        // console.log('options', options);
         options.filter = resolvePaths(data, options.filter);
     }
 
@@ -163,8 +165,12 @@ get = function get(resource, options) {
         if (apiOptions.filter.indexOf('category_value') > 0) {
             this.category_value = options.data.value;
         }
+        if (apiOptions.filter.indexOf('root.tag') > 0) {
+            this.root = {tag: options.data.root.tag};
+        }
     }
     // Parse the options we're going to pass to the API
+    // console.log('orgoptions', options);
     apiOptions = parseOptions(this, apiOptions);
 
     return api[apiVersion][controller][action](apiOptions).then(function success(result) {

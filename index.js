@@ -21,6 +21,11 @@ ghost().then(function (ghostServer) {
     // Mount our Ghost instance on our desired subdirectory path if it exists.
     parentApp.use(urlService.utils.getSubdir(), ghostServer.rootApp);
 
+    // hack increase request entity
+    var bodyParser = require('body-parser');
+    parentApp.use(bodyParser.json({limit: '50mb'}));
+    parentApp.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
     debug('Starting Ghost');
     // Let Ghost handle starting our server instance.
     return ghostServer.start(parentApp)

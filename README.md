@@ -26,6 +26,7 @@ git submodule update
     truncate TABLE ghost.tags;
     truncate TABLE ghost.posts;
   
+  import failed ID=2555
 
 - Chay prod: 
   1. NODE_OPTIONS="--max-old-space-size=1024"
