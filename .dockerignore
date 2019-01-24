@@ -1,0 +1,11 @@
+**/node_modules
+**/.github
+**/.vscode
+**/.build
+**/.built
+**/.dist
+
+
+
+content/images/2019
+content/images/Portals
