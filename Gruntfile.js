@@ -296,7 +296,7 @@ var config = require('./core/server/config'),
             compress: {
                 release: {
                     options: {
-                        archive: '<%= paths.releaseDist %>/Ghost-<%= pkg.version %>.zip'
+                        archive: '<%= paths.releaseDist %>/cuuchienbinh-<%= pkg.version %>.zip'
                     },
                     expand: true,
                     cwd: '<%= paths.releaseBuild %>/',
@@ -756,7 +756,10 @@ var config = require('./core/server/config'),
                     }]
                 });
 
-                grunt.task.run(['update_submodules:pinned', 'subgrunt:init', 'clean:built', 'clean:tmp', 'prod', 'clean:release', 'copy:admin_html', 'copy:release', 'compress:release']);
+                grunt.task.run([
+                    // 'update_submodules:pinned',   << ccb no need
+                    'subgrunt:init', 'clean:built', 'clean:tmp', 'prod', 'clean:release', 'copy:admin_html', 'copy:release', 'compress:release'
+                ]);
             }
         );
     };
