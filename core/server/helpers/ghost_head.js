@@ -174,8 +174,8 @@ module.exports = function ghost_head(options) { // eslint-disable-line camelcase
                 }
             }
 
-            head.push('<meta name="generator" content="Ghost ' +
-                escapeExpression(safeVersion) + '" />');
+            //head.push('<meta name="generator" content="Ghost ' +
+            //    escapeExpression(safeVersion) + '" />');
 
             head.push('<link rel="alternate" type="application/rss+xml" title="' +
                 escapeExpression(metaData.blog.title) + '" href="' +
