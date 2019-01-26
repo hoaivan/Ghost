@@ -131,7 +131,9 @@ module.exports = {
             const nilDataProperties = [];
 
             _.each(apiConfig.data, (value, key) => {
-                if (jsonpath.query(frame.data[apiConfig.docName][0], key).length === 0) {
+                if (value && 'required' in value && !value['required']) {
+                    // pass
+                } else if (jsonpath.query(frame.data[apiConfig.docName][0], key).length === 0) {
                     missedDataProperties.push(key);
                 } else if (_.isNil(frame.data[apiConfig.docName][0][key])) {
                     nilDataProperties.push(key);
