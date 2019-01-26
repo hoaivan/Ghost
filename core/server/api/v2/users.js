@@ -144,7 +144,7 @@ module.exports = {
             data: {
                 newPassword: {required: true},
                 ne2Password: {required: true},
-                oldPassword: {required: true},
+                oldPassword: {required: false},
                 user_id: {required: true}
             }
         },
@@ -156,6 +156,7 @@ module.exports = {
             }
         },
         query(frame) {
+            console.log('frame', frame);
             return models.User.changePassword(frame.data.password[0], frame.options);
         }
     },

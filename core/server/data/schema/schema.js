@@ -17,7 +17,7 @@ module.exports = {
         html: {type: 'text', maxlength: 1000000000, fieldtype: 'long', nullable: true},
         comment_id: {type: 'string', maxlength: 50, nullable: true},
         plaintext: {type: 'text', maxlength: 1000000000, fieldtype: 'long', nullable: true},
-        feature_image: {type: 'string', maxlength: 2500, nullable: true},
+        feature_image: {type: 'text', maxlength: 2500, nullable: true},
         featured: {type: 'bool', nullable: false, defaultTo: false},
         page: {type: 'bool', nullable: false, defaultTo: false},
         status: {type: 'string', maxlength: 50, nullable: false, defaultTo: 'draft'},
@@ -159,7 +159,7 @@ module.exports = {
         name: {type: 'string', maxlength: 191, nullable: false, validations: {matches: /^([^,]|$)/}},
         slug: {type: 'string', maxlength: 191, nullable: false, unique: true},
         description: {type: 'text', maxlength: 65535, nullable: true, validations: {isLength: {max: 500}}},
-        feature_image: {type: 'string', maxlength: 2500, nullable: true},
+        feature_image: {type: 'text', maxlength: 2500, nullable: true},
         parent_id: {type: 'string', nullable: true},
         visibility: {
             type: 'string',

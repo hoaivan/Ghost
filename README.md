@@ -30,7 +30,18 @@ git submodule update
 
 - Chay prod: 
   1. NODE_OPTIONS="--max-old-space-size=1024"
- 
+  2. grunt prod de build client
+
+# Release process
+
+1. grunt release
+2. Copy from .build/release or zip file in .dist/release folder  to remote server
+3. override code 
+4. docker-compose build 
+5. docker-compose down
+6. docker-compose up 
+
+
 
 &nbsp;
 <p align="center">

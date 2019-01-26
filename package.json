@@ -21,7 +21,7 @@
   "license": "MIT",
   "main": "./core/index",
   "scripts": {
-    "start": "node index",
+    "start": "NODE_OPTIONS=\"--max-old-space-size=2048\"  node index",
     "dev": "NODE_OPTIONS=\"--max-old-space-size=1024\" DEBUG=ghost:* grunt dev",
     "test": "grunt validate --verbose",
     "setup": "yarn install && knex-migrator init && grunt symlink && grunt init || true",
