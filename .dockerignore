@@ -16,3 +16,5 @@ core/client/.github
 core/client/dist
 core/client/node_modules
 core/client/tmp
+docker/certbot
+docker/nginx
