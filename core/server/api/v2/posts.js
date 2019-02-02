@@ -36,12 +36,10 @@ function processTags(tags, post_tags_org, main_category, secondary_category) {
         }
     }
 
-    //console.log('posttags org', post_tags_org);
     for (let t of post_tags_org) {
         if (t.slug !== main_category
             && t.slug !== secondary_category) {
             if (keys.indexOf(t.slug) < 0) {
-                console.log('push', t.slug)
                 post_tags.push(t);
             }
         }
