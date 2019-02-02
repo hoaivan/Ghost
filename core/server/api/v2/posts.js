@@ -3,6 +3,51 @@ const common = require('../../lib/common');
 const urlService = require('../../services/url');
 const allowedIncludes = ['author', 'tags', 'authors', 'authors.roles'];
 const unsafeAttrs = ['author_id', 'status', 'authors'];
+const config = require('../../config');
+
+/**
+ * Support main category, secondary category
+ * */
+function processTags(tags, post_tags_org, main_category, secondary_category) {
+    let post_tags = [];
+    let main = null;
+    let second = null;
+
+    for (let t of tags.models) {
+        t = t.attributes;
+        if (t.slug === main_category) {
+            main = t;
+            continue;
+        }
+        if (secondary_category && t.slug === secondary_category) {
+            second = t;
+            continue;
+        }
+    }
+
+    if (main) post_tags.push(main);
+    if (second) post_tags.push(second);
+    let categories = config.get('ccbCategories');
+    let keys = [];
+    for (let k in categories) {
+        keys.push(k);
+        for (let v of categories[k]) {
+            keys.push(v);
+        }
+    }
+
+    //console.log('posttags org', post_tags_org);
+    for (let t of post_tags_org) {
+        if (t.slug !== main_category
+            && t.slug !== secondary_category) {
+            if (keys.indexOf(t.slug) < 0) {
+                console.log('push', t.slug)
+                post_tags.push(t);
+            }
+        }
+    }
+    return post_tags;
+}
 
 module.exports = {
     docName: 'posts',
@@ -96,15 +141,24 @@ module.exports = {
             unsafeAttrs: unsafeAttrs
         },
         query(frame) {
-            return models.Post.add(frame.data.posts[0], frame.options)
-                .then((model) => {
-                    if (model.get('status') !== 'published') {
-                        this.headers.cacheInvalidate = false;
-                    } else {
-                        this.headers.cacheInvalidate = true;
-                    }
+            return models.Tag.findAll()
+                .then((tags) => {
+                    frame.data.posts[0].tags = processTags(tags,
+                        frame.data.posts[0].tags,
+                        frame.data.posts[0].main_category,
+                        frame.data.posts[0].secondary_category);
 
-                    return model;
+                    // org code
+                    return models.Post.add(frame.data.posts[0], frame.options)
+                        .then((model) => {
+                            if (model.get('status') !== 'published') {
+                                this.headers.cacheInvalidate = false;
+                            } else {
+                                this.headers.cacheInvalidate = true;
+                            }
+
+                            return model;
+                        });
                 });
         }
     },
@@ -129,22 +183,30 @@ module.exports = {
             unsafeAttrs: unsafeAttrs
         },
         query(frame) {
-            return models.Post.edit(frame.data.posts[0], frame.options)
-                .then((model) => {
-                    if (model.get('status') === 'published' ||
-                        model.get('status') === 'draft' && model.updated('status') === 'published') {
-                        this.headers.cacheInvalidate = true;
-                    } else if (model.get('status') === 'draft' && model.updated('status') !== 'published') {
-                        this.headers.cacheInvalidate = {
-                            value: urlService.utils.urlFor({
-                                relativeUrl: urlService.utils.urlJoin('/p', model.get('uuid'), '/')
-                            })
-                        };
-                    } else {
-                        this.headers.cacheInvalidate = false;
-                    }
+            return models.Tag.findAll()
+                .then((tags) => {
+                    frame.data.posts[0].tags = processTags(tags,
+                        frame.data.posts[0].tags,
+                        frame.data.posts[0].main_category,
+                        frame.data.posts[0].secondary_category);
 
-                    return model;
+                    // org code
+                    return models.Post.edit(frame.data.posts[0], frame.options)
+                        .then((model) => {
+                            if (model.get('status') === 'published' ||
+                                model.get('status') === 'draft' && model.updated('status') === 'published') {
+                                this.headers.cacheInvalidate = true;
+                            } else if (model.get('status') === 'draft' && model.updated('status') !== 'published') {
+                                this.headers.cacheInvalidate = {
+                                    value: urlService.utils.urlFor({
+                                        relativeUrl: urlService.utils.urlJoin('/p', model.get('uuid'), '/')
+                                    })
+                                };
+                            } else {
+                                this.headers.cacheInvalidate = false;
+                            }
+                            return model;
+                        });
                 });
         }
     },
