@@ -8,10 +8,16 @@ const config = require('../../config');
 /**
  * Support main category, secondary category
  * */
-function processTags(tags, post_tags_org, main_category, secondary_category) {
+function processTags(tags, post) {
+    let post_tags_org = post.tags;
+    let main_category = post.main_category;
+    let secondary_category = post.secondary_category;
+    let cho_duyet = post.cho_duyet === '1' ? true : false;
     let post_tags = [];
     let main = null;
     let second = null;
+
+    let tagApprove = null;
 
     for (let t of tags.models) {
         t = t.attributes;
@@ -21,6 +27,10 @@ function processTags(tags, post_tags_org, main_category, secondary_category) {
         }
         if (secondary_category && t.slug === secondary_category) {
             second = t;
+            continue;
+        }
+        if (t.slug == 'cho-duyet') {
+            tagApprove = t;
             continue;
         }
     }
@@ -36,14 +46,20 @@ function processTags(tags, post_tags_org, main_category, secondary_category) {
         }
     }
 
-    for (let t of post_tags_org) {
-        if (t.slug !== main_category
-            && t.slug !== secondary_category) {
-            if (keys.indexOf(t.slug) < 0) {
-                post_tags.push(t);
+    if (post_tags_org) {
+        for (let t of post_tags_org) {
+            if (t.slug !== main_category
+                && t.slug !== secondary_category) {
+                if (keys.indexOf(t.slug) < 0) {
+                    post_tags.push(t);
+                }
             }
         }
     }
+    if (cho_duyet && tagApprove) {
+        post_tags.push(tagApprove);
+    }
+
     return post_tags;
 }
 
@@ -141,10 +157,7 @@ module.exports = {
         query(frame) {
             return models.Tag.findAll()
                 .then((tags) => {
-                    frame.data.posts[0].tags = processTags(tags,
-                        frame.data.posts[0].tags,
-                        frame.data.posts[0].main_category,
-                        frame.data.posts[0].secondary_category);
+                    frame.data.posts[0].tags = processTags(tags, frame.data.posts[0]);
 
                     // org code
                     return models.Post.add(frame.data.posts[0], frame.options)
@@ -181,12 +194,10 @@ module.exports = {
             unsafeAttrs: unsafeAttrs
         },
         query(frame) {
+            console.log('tags', frame.data.posts[0]);
             return models.Tag.findAll()
                 .then((tags) => {
-                    frame.data.posts[0].tags = processTags(tags,
-                        frame.data.posts[0].tags,
-                        frame.data.posts[0].main_category,
-                        frame.data.posts[0].secondary_category);
+                    frame.data.posts[0].tags = processTags(tags, frame.data.posts[0]);
 
                     // org code
                     return models.Post.edit(frame.data.posts[0], frame.options)
