@@ -194,7 +194,6 @@ module.exports = {
             unsafeAttrs: unsafeAttrs
         },
         query(frame) {
-            console.log('tags', frame.data.posts[0]);
             return models.Tag.findAll()
                 .then((tags) => {
                     frame.data.posts[0].tags = processTags(tags, frame.data.posts[0]);
