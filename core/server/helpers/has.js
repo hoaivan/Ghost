@@ -146,6 +146,7 @@ module.exports = function has(options) {
                     }
                     key = tmp;
                 }
+                //console.log('key', attrs.key, key, options.data.key)
                 return attrs.key && evaluateStringMatch(key, options.data.key, true) || false;
             },
             value: function () {
