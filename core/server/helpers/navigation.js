@@ -55,7 +55,9 @@ module.exports = function navigation(options) {
             strippedCurrentUrl = currentUrl.replace(/\/+$/, '');
         return strippedHref === strippedCurrentUrl;
     }
-
+    function _notHome(href) {
+        return href && href !== '/';
+    }
     // {{navigation}} should no-op if no data passed in
     if (navigationData.length === 0) {
         return new SafeString('');
@@ -63,6 +65,7 @@ module.exports = function navigation(options) {
 
     output = navigationData.map(function (e) {
         var out = {};
+        out.notHome = _notHome(currentUrl);
         out.current = _isCurrentUrl(e.url, currentUrl);
         out.label = e.label;
         out.slug = _slugify(e.label);
